@@ -1,0 +1,143 @@
+﻿@page "/About"
+@using Microsoft.JSInterop
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
+
+<Header />
+
+<div class="carousel">
+    <div class="carousel-inner">
+        @foreach (var imageUrl in ImageUrls)
+        {
+            <div class="carousel-item" style="@(ImageUrls.IndexOf(imageUrl) == currentIndex ? "display: block;" : "display: none;")">
+                <img src="@imageUrl" alt="Slide @(ImageUrls.IndexOf(imageUrl) + 1)">
+            </div>
+        }
+    </div>
+    <div class="carousel-controls">
+        <button class="carousel-control left" @onclick="PreviousSlide">&#10094;</button>
+        <button class="carousel-control right" @onclick="NextSlide">&#10095;</button>
+    </div>
+</div>
+
+<div class="TextAboutUs">
+    <h1 class="h1TextAboutUs">
+        Наша компания
+    </h1>
+    <p class="textTextAboutUs">
+        Travelata — крупная компания с международными и​нвестициями б​олее 10 млн. долларов. Входит в группу компаний, работающих в 5 странах Европы, и является членом Альянса Туристических Агентств.
+        Travelata — крупная компания с международными и​нвестициями б​олее 10 млн. долларов. Входит в группу компаний, работающих в 5 странах Европы, и является членом Альянса Туристических Агентств.
+        Travelata — крупная компания с международными и​нвестициями б​олее 10 млн. долларов. Входит в группу компаний, работающих в 5 странах Европы, и является членом Альянса Туристических Агентств.
+        Travelata — крупная компания с международными и​нвестициями б​олее 10 млн. долларов. Входит в группу компаний, работающих в 5 странах Европы, и является членом Альянса Туристических Агентств.
+        Travelata — крупная компания с международными и​нвестициями б​олее 10 млн. долларов. Входит в группу компаний, работающих в 5 странах Европы, и является членом Альянса Туристических Агентств.
+        Travelata — крупная компания с международными и​нвестициями б​олее 10 млн. долларов. Входит в группу компаний, работающих в 5 странах Европы, и является членом Альянса Туристических Агентств.
+    </p>
+</div>
+
+@code {
+    private List<string> ImageUrls = new List<string>
+    {
+        "https://7d9e88a8-f178-4098-bea5-48d960920605.selcdn.net/4ca0b6d5-160b-47f2-b0d7-400ad19e9878/",
+        "https://turvopros.com/wp-content/uploads/2022/01/dostoprimechatelnosti-sharm-el-sheiha.jpg",
+    };
+
+    private int currentIndex = 0;
+
+
+    private void NextSlide()
+    {
+        currentIndex = (currentIndex + 1) % ImageUrls.Count;
+        StateHasChanged();
+    }
+
+    private void PreviousSlide()
+    {
+        currentIndex = (currentIndex - 1 + ImageUrls.Count) % ImageUrls.Count;
+        StateHasChanged();
+    }
+}
+
+<style>
+    .textTextAboutUs {
+        font-family: Montserrat;
+        color: black;
+    }
+
+    .h1TextAboutUs {
+        font-family: Montserrat Black;
+        text-align: center;
+    }
+
+    .TextAboutUs {
+        border-radius: 15px;
+        margin-top: 40px;
+        margin-right: 7%;
+        margin-left: 7%;
+        background-color: #FFEAEA;
+    }
+
+    .carousel {
+        width: 80%;
+        margin: auto;
+        position: relative;
+        margin-top: 25px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease;
+        overflow: hidden;
+    }
+
+    .carousel-item {
+        flex: 0 0 auto;
+        width: 100%;
+        text-align: center;
+    }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+    .carousel-controls {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1;
+    }
+
+    .carousel-control {
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        border-radius: 50%;
+        color: #000;
+        cursor: pointer;
+        font-size: 24px;
+        line-height: 1;
+        padding: 10px;
+        transition: background 0.3s ease;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+        .carousel-control.left {
+            left: 10px;
+        }
+
+        .carousel-control.right {
+            right: 10px;
+        }
+
+        .carousel-control:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+</style>
