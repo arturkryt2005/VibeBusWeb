@@ -1,17 +1,19 @@
 ﻿@page "/RegistrationPage"
+@using VibeBusWeb.Data
 @inject Microsoft.JSInterop.IJSRuntime JSRuntime
+@inject DbConnectionContext dbContext
 
 <div class="login-form">
     <h1 class="Vhonh">Регистрация</h1>
 
     <div class="form-group">
-        <label for="firstName">Имя:</label>
-        <input type="text" maxlength="15" id="firstName" class="form-control" @bind="_firstName" required />
+        <label for="name">Имя:</label>
+        <input type="text" maxlength="15" id="firstName" class="form-control" @bind="_name" required />
     </div>
 
     <div class="form-group">
-        <label for="lastName">Фамилия:</label>
-        <input type="text" maxlength="20" id="lastName" class="form-control" @bind="_lastName" required />
+        <label for="surname">Фамилия:</label>
+        <input type="text" maxlength="20" id="lastName" class="form-control" @bind="_surname" required />
     </div>
 
     <div class="form-group">
@@ -36,9 +38,9 @@
     [Inject]
     private NavigationManager NavigationManager { get; set; } = null!;
 
-    private string _firstName = null!;
+    private string _name = null!;
 
-    private string _lastName = null!;
+    private string _surname = null!;
 
     private string _email = null!;
 
@@ -48,6 +50,36 @@
 
     private async Task Register()
     {
-        NavigationManager.NavigateTo("/");
+        if (!_email.Contains("@"))
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Некорректный адрес электронной почты.");
+            return;
+        }
+        var existingUser = dbContext.Users.FirstOrDefault(c => c.Email == _email);
+        if(existingUser != null)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "По этой почте пользователь уже был зарегистрирован!");
+        }
+        if (string.IsNullOrEmpty(_name) ||
+           string.IsNullOrEmpty(_surname) ||
+           string.IsNullOrEmpty(_email) ||
+           string.IsNullOrEmpty(_phoneNumber) ||
+           string.IsNullOrEmpty(_password))
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Пожалуйста, заполните все обязательные поля.");
+            return;
+        }
+        var user = new Users()
+            {
+                Name = _name,
+                Surname = _surname,
+                Email = _email,
+                PhoneNumber = _phoneNumber,
+                Password = _password
+            };
+            dbContext.Users.Add(user);
+            await dbContext.SaveChangesAsync();
+
+            NavigationManager.NavigateTo("/");
     }
 }

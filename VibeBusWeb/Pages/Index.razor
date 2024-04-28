@@ -18,7 +18,7 @@
     </div>
 
     <div class="buttons">
-        <button type="submit" class="btn btn-primary" @onclick="Register">Войти</button>
+        <button type="submit" class="btn btn-primary" @onclick="Login">Войти</button>
         <button @onclick="RedirectToRegistrationPage" class=" btn btn-link">Нет аккаунта?</button>
     </div>
 </div>
@@ -34,7 +34,7 @@
         NavigationManager.NavigateTo("/RegistrationPage");
     }
 
-        private async Task Register()
+    private async Task Login()
         {
               NavigationManager.NavigateTo("/Profile");
         }
