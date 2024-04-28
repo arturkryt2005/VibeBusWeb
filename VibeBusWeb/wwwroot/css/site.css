@@ -18,6 +18,98 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
+
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-image: url('https://i.ibb.co/sVF0gMf/image.png');
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+body {
+    background-image: url('https://i.ibb.co/7z6xpfx/bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.HeaderMain {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxkhe_HvL3UWbcZiCxKJn8asdma0AkJ2JChxZHFtKDZg&s');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 55px;
+    margin: 0;
+    width: 100%
+}
+
+.HeaderText {
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    font-family: Montserrat;
+    justify-content: space-between;
+}
+
+.iconFP {
+    height: 55px;
+    width: 55px;
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+.TextHeadera {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+.TextHeadera {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    padding-right: 10px;
+}
+
+    .TextHeadera:hover {
+        color: burlywood;
+    }
+
 .content {
     padding-top: 1.1rem;
 }

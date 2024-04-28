@@ -1,9 +1,38 @@
 ﻿@page "/"
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Главная страница</PageTitle>
+<Header />
 
-<h1>Hello, world!</h1>
+<div class="login-form">
+    <h1 class="Vhonh">Вход</h1>
 
-Welcome to your new app.
+    <div class="form-group">
+        <label for="firstName">Логин или почта:</label>
+        <input type="text" maxlength="30" id="email" class="form-control" @bind="email" />
+    </div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <div class="form-group">
+        <label for="lastName">Пароль:</label>
+        <input type="password" maxlength="8" id="password" class="form-control" @bind="password" />
+    </div>
+
+    <div class="buttons">
+        <button type="submit" class="btn btn-primary">Войти</button>
+        <button @onclick="RedirectToRegistrationPage" class=" btn btn-link">Нет аккаунта?</button>
+    </div>
+</div>
+@code {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
+
+
+    private void RedirectToRegistrationPage()
+    {
+        NavigationManager.NavigateTo("/RegistrationPage");
+    }
+
+    private string email = null!;
+    private string password = null!;
+
+}
