@@ -1,0 +1,48 @@
+﻿@page "/Profile"
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
+
+<Header />
+
+<div class="profile-container">
+        <p class="nameee">Имя:</p>
+
+        <h1 class="Name">Имя</h1>
+
+        <p class="nameee">Фамилия: </p>
+
+        <h1 class="SurName">Фамилия</h1>
+
+        <p class="nameee">Почта:</p>
+
+        <h1 class="SurName">Почта</h1>
+
+        <p class="nameee">Номер телефона:</p>
+
+        <h1 class="SurName">Телефон</h1>
+
+        <div class="buttons">
+            <div class="editdiv">
+                <button @onclick="EditProfile" class="editbut">Редактировать профиль</button>
+            </div>
+
+            <div class="editdiv">
+                <button @onclick="Cancel" class="editbut">Выйти из аккаунта</button>
+            </div>
+        </div>
+</div>
+
+@code {
+    [Inject]
+
+    private NavigationManager NavigationManager { get; set; } = null!;
+
+    private void EditProfile()
+    {
+        NavigationManager.NavigateTo("/EditPage");
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

@@ -18,6 +18,15 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
+.btn-reg {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    margin: auto;
+    display: block;
+}
+
+
 
 .login-form {
     max-width: 400px;
@@ -28,6 +37,49 @@ a, .btn-link {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 100px;
 }
+
+
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.nameee {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.Name, .SurName {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+.editbut {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: palegreen;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .editbut:hover {
+        background-color: #0056b3;
+    }
+
 
 .buttons {
     display: flex;

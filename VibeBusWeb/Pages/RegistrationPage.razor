@@ -1,0 +1,53 @@
+﻿@page "/RegistrationPage"
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
+
+<div class="login-form">
+    <h1 class="Vhonh">Регистрация</h1>
+
+    <div class="form-group">
+        <label for="firstName">Имя:</label>
+        <input type="text" maxlength="15" id="firstName" class="form-control" @bind="_firstName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="lastName">Фамилия:</label>
+        <input type="text" maxlength="20" id="lastName" class="form-control" @bind="_lastName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="email">Почта:</label>
+        <input type="email" maxlength="30" id="email" class="form-control" @bind="_email" required />
+    </div>
+
+    <div class="form-group">
+        <label for="phoneNumber">Номер телефона:</label>
+        <input type="tel" maxlength="11" id="phoneNumber" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)" @bind="_phoneNumber" required />
+    </div>
+
+    <div class="form-group">
+        <label for="password">Пароль:</label>
+        <input type="password" maxlength="8" id="password" class="form-control" @bind="_password" required />
+    </div>
+
+    <button class="btn btn-reg" @onclick="Register">Зарегистироваться</button>
+</div>
+
+@code {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
+
+    private string _firstName = null!;
+
+    private string _lastName = null!;
+
+    private string _email = null!;
+
+    private string _phoneNumber = null!;
+
+    private string _password = null!;
+
+    private async Task Register()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}
