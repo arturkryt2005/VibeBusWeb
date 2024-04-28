@@ -58,6 +58,47 @@ a, .btn-link {
     margin-bottom: 5px;
 }
 
+.profile-edit-form {
+    background-color: black;
+    width: 45%;
+    border-radius: 15px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.editnameandmore {
+    color: white;
+    font-family: Montserrat Medium;
+}
+
+.btnedit {
+    background-color: white;
+    color: black;
+    font-family: Montserrat Medium;
+    text-align: center;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+    .btnedit:hover {
+        background-color: black;
+        color: white;
+    }
+
+.Izmen {
+    color: white;
+    font-family: Montserrat Black;
+    text-align: center;
+}
+
 .Name, .SurName {
     font-size: 24px;
     font-weight: bold;
