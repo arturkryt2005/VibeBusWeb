@@ -31,7 +31,11 @@
         <input type="password" maxlength="8" id="password" class="form-control" @bind="_password" required />
     </div>
 
-    <button class="btn btn-reg" @onclick="Register">Зарегистироваться</button>
+    <div class="buttons">
+        <button @onclick="RedirectToIndexPage" class=" btn btn-link">Уже есть аккаунт</button>
+        <button class="btn btn-reg" @onclick="Register">Зарегистироваться</button>
+    </div>
+
 </div>
 
 @code {
@@ -47,6 +51,11 @@
     private string _phoneNumber = null!;
 
     private string _password = null!;
+
+    private void RedirectToIndexPage()
+    {
+        NavigationManager.NavigateTo("/");
+    }
 
     private async Task Register()
     {
