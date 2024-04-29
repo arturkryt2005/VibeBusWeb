@@ -1,5 +1,8 @@
 ﻿@page "/"
+@using VibeBusWeb.Data
 @inject Microsoft.JSInterop.IJSRuntime JSRuntime
+@inject DbConnectionContext dbContext
+@inject UserService userService
 
 <PageTitle>Главная страница</PageTitle>
 <Header />
@@ -8,13 +11,13 @@
     <h1 class="Vhonh">Вход</h1>
 
     <div class="form-group">
-        <label for="firstName">Логин или почта:</label>
-        <input type="text" maxlength="30" id="email" class="form-control" @bind="email" />
+        <label for="Name">Логин или почта:</label>
+        <input type="text" maxlength="30" id="_email" class="form-control" @bind="_email" />
     </div>
 
     <div class="form-group">
-        <label for="lastName">Пароль:</label>
-        <input type="password" maxlength="8" id="password" class="form-control" @bind="password" />
+        <label for="password">Пароль:</label>
+        <input type="password" maxlength="8" id="password" class="form-control" @bind="_password" />
     </div>
 
     <div class="buttons">
@@ -25,21 +28,34 @@
 
 <Footer />
 @code {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = null!;
-
-
     private void RedirectToRegistrationPage()
     {
         NavigationManager.NavigateTo("/RegistrationPage");
     }
 
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
+
+    private string _email = null!;
+    private string _password = null!;
+
     private async Task Login()
+    {
+        if (string.IsNullOrEmpty(_email) || string.IsNullOrEmpty(_password))
         {
-              NavigationManager.NavigateTo("/Profile");
+            await JSRuntime.InvokeVoidAsync("alert", "Пожалуйста, заполните все обязательные поля.");
+            return;
         }
 
-    private string email = null!;
-    private string password = null!;
-
+        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == _email && u.Password == _password);
+        if (user != null)
+        {
+            userService.CurrentUser = user;
+            NavigationManager.NavigateTo("/Profile");
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Неверный адрес электронной почты или пароль.");
+        }
+    }
 }

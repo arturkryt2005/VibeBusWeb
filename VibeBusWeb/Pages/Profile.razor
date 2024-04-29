@@ -1,24 +1,28 @@
 ﻿@page "/Profile"
 @inject Microsoft.JSInterop.IJSRuntime JSRuntime
+@using VibeBusWeb.Data
+@inject DbConnectionContext dbContext
+@inject UserService userService
 
 <Header />
 
 <div class="profile-container">
+    @if (CurrentUser != null){
         <p class="nameee">Имя:</p>
 
-        <h1 class="Name">Имя</h1>
+    <h1 class="Name">@userService.CurrentUser.Name</h1>
 
         <p class="nameee">Фамилия: </p>
 
-        <h1 class="SurName">Фамилия</h1>
+    <h1 class="SurName">@userService.CurrentUser.Surname</h1>
 
         <p class="nameee">Почта:</p>
 
-        <h1 class="SurName">Почта</h1>
+    <h1 class="SurName">@userService.CurrentUser.Email</h1>
 
         <p class="nameee">Номер телефона:</p>
 
-        <h1 class="SurName">Телефон</h1>
+    <h1 class="SurName">@userService.CurrentUser.PhoneNumber</h1>
 
         <div class="buttons">
             <div class="editdiv">
@@ -29,6 +33,11 @@
                 <button @onclick="Cancel" class="editbut">Выйти из аккаунта</button>
             </div>
         </div>
+        }
+    else
+    {
+    <p>Данные пользователя не загружены.</p>
+    }
 </div>
 
 @code {
@@ -36,6 +45,12 @@
 
     private NavigationManager NavigationManager { get; set; } = null!;
 
+    private Users CurrentUser { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        CurrentUser = userService.CurrentUser;
+    }
     private void EditProfile()
     {
         NavigationManager.NavigateTo("/EditPage");
