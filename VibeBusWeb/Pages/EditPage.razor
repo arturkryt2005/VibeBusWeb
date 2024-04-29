@@ -1,27 +1,29 @@
 ﻿@page "/EditPage"
 @inject Microsoft.JSInterop.IJSRuntime JSRuntime
+@using VibeBusWeb.Data
+@inject DbConnectionContext dbContext
 
 <div class="profile-edit-form">
     <h1 class="Izmen">Изменение данных</h1>
 
     <div class="form-group">
         <label for="firstName" class="editnameandmore">Имя:</label>
-        <input type="text" maxlength="15" id="firstName" class="form-control"  required />
+        <input type="text" maxlength="15" id="firstName" class="form-control" @bind="CurrentUser.Name" required />
     </div>
 
     <div class="form-group">
         <label for="lastName" class="editnameandmore">Фамилия:</label>
-        <input type="text" maxlength="20" id="lastName" class="form-control" required />
+        <input type="text" maxlength="20" id="lastName" class="form-control" @bind="CurrentUser.Surname" required />
     </div>
 
     <div class="form-group">
         <label for="email" class="editnameandmore">Почта:</label>
-        <input type="email" maxlength="30" id="email" class="form-control" required />
+        <input type="email" maxlength="30" id="email" class="form-control" @bind="CurrentUser.Email" required />
     </div>
 
     <div class="form-group">
         <label for="phoneNumber" class="editnameandmore">Номер телефона:</label>
-        <input type="tel" maxlength="11" id="phoneNumber" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)" required />
+        <input type="tel" maxlength="11" id="phoneNumber" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)" @bind="CurrentUser.PhoneNumber" required />
     </div>
 
     <button class="btnedit" @onclick="SaveChanges">Сохранить изменения</button>
@@ -31,14 +33,33 @@
     [Inject]
     private NavigationManager NavigationManager { get; set; } = null!;
 
+    [Inject]
+    private UserService UserService { get; set; } = null!;
+
+    private Users CurrentUser { get; set; } = null!;
 
     protected override void OnInitialized()
     {
+        CurrentUser = UserService.CurrentUser;
         StateHasChanged();
     }
 
     private async Task SaveChanges()
     {
+        if (!CurrentUser.Email.Contains("@"))
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Некорректный адрес электронной почты.");
+            return;
+        }
+
+        var existingUser = dbContext.Users.FirstOrDefault(c => c.Id == CurrentUser.Id);
+
+        dbContext.Users.Update(CurrentUser);
+        await dbContext.SaveChangesAsync();
+
+        CurrentUser = dbContext.Users.FirstOrDefault(c => c.Id == existingUser.Id);
+        StateHasChanged();
+
         NavigationManager.NavigateTo("/Profile");
     }
 }

@@ -5,7 +5,6 @@
 @inject UserService userService
 
 <PageTitle>Главная страница</PageTitle>
-<Header />
 
 <div class="login-form">
     <h1 class="Vhonh">Вход</h1>
@@ -17,7 +16,7 @@
 
     <div class="form-group">
         <label for="password">Пароль:</label>
-        <input type="password" maxlength="8" id="password" class="form-control" @bind="_password" />
+        <input type="password" maxlength="8" id="_password" class="form-control" @bind="_password" />
     </div>
 
     <div class="buttons">
