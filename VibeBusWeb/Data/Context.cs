@@ -25,9 +25,13 @@ namespace VibeBusWeb.Data
     public class Routes
     {
         public int Id { get; set; }
-        public string DepartureTime { get; set; } = null!;
-        public string DestinationTime { get; set; } = null!;
+        public DateTime DepartureTime { get; set; }
+        public int DeparturePointId { get; set; }
+        public int DestinationPointId { get; set; }
+        public DateTime DestinationTime { get; set; }
+        public int UserId { get; set; }
     }
+
 
     public class Trips
     {
@@ -58,6 +62,11 @@ namespace VibeBusWeb.Data
         public DbSet<Routes> Routes { get; set; }
         public DbSet<Trips> Trips { get; set; }
         public DbSet<Users> Users { get; set; }
-
+        public async Task<List<Routes>> GetUserTripsAsync(string userId)
+        {
+            return await Routes
+                .Where(r => r.UserId.ToString() == userId && r.UserId != 0)
+                .ToListAsync();
+        }
     }
 }

@@ -1,63 +1,110 @@
-﻿@page "/Profile"
-@inject Microsoft.JSInterop.IJSRuntime JSRuntime
-@using VibeBusWeb.Data
-@inject DbConnectionContext dbContext
-@inject UserService userService
+﻿    @page "/Profile"
+    @inject Microsoft.JSInterop.IJSRuntime JSRuntime
+    @using VibeBusWeb.Data
+    @inject DbConnectionContext dbContext
+    @inject UserService userService
 
-<Header />
+    <Header />
 
-<div class="profile-container">
-    @if (CurrentUser != null){
-        <p class="nameee">Имя:</p>
+    <div class="profile-container">
+        @if (CurrentUser != null){
+            <p class="nameee">Имя:</p>
 
-    <h1 class="Name">@userService.CurrentUser.Name</h1>
+        <h1 class="Name">@userService.CurrentUser.Name</h1>
 
-        <p class="nameee">Фамилия: </p>
+            <p class="nameee">Фамилия: </p>
 
-    <h1 class="SurName">@userService.CurrentUser.Surname</h1>
+        <h1 class="SurName">@userService.CurrentUser.Surname</h1>
 
-        <p class="nameee">Почта:</p>
+            <p class="nameee">Почта:</p>
 
-    <h1 class="SurName">@userService.CurrentUser.Email</h1>
+        <h1 class="SurName">@userService.CurrentUser.Email</h1>
 
-        <p class="nameee">Номер телефона:</p>
+            <p class="nameee">Номер телефона:</p>
 
-    <h1 class="SurName">@userService.CurrentUser.PhoneNumber</h1>
+        <h1 class="SurName">@userService.CurrentUser.PhoneNumber</h1>
 
-        <div class="buttons">
-            <div class="editdiv">
-                <button @onclick="EditProfile" class="editbut">Редактировать профиль</button>
+            <div class="buttons">
+                <div class="editdiv">
+                    <button @onclick="EditProfile" class="editbut">Редактировать профиль</button>
+                </div>
+
+                <div class="editdiv">
+                    <button @onclick="Cancel" class="editbut">Выйти из аккаунта</button>
+                </div>
             </div>
-
-            <div class="editdiv">
-                <button @onclick="Cancel" class="editbut">Выйти из аккаунта</button>
-            </div>
-        </div>
+            }
+        else
+        {
+        <p>Данные пользователя не загружены.</p>
         }
+        <h2>Поездки пользователя</h2>
+
+    @if (UserTrips != null && UserTrips.Any())
+    {
+        <ul>
+            @foreach (var trip in UserTrips)
+            {
+                var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
+                var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
+
+                <li>
+                    @if (departureCity != null && destinationCity != null)
+                    {
+                        <span>@departureCity.Name - @destinationCity.Name</span>
+                        @if (trip.DepartureTime != null)
+                        {
+                            <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                            <p>Дата прибытия: @trip.DestinationTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                        }
+                        else
+                        {
+                            <p>Информация о маршруте не доступна.</p>
+                        }
+                    }
+                    else
+                    {
+                        <p>Информация о городах не доступна.</p>
+                    }
+                </li>
+            }
+        </ul>
+    }
     else
     {
-    <p>Данные пользователя не загружены.</p>
+        <p>У пользователя пока нет поездок.</p>
     }
-</div>
 
-@code {
-    [Inject]
 
-    private NavigationManager NavigationManager { get; set; } = null!;
 
-    private Users CurrentUser { get; set; } = null!;
+    </div>
 
-    protected override void OnInitialized()
+    @code {
+        [Inject]
+
+        private NavigationManager NavigationManager { get; set; } = null!;
+
+        private Users CurrentUser { get; set; } = null!;
+
+        private List<Routes> UserTrips { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
     {
         CurrentUser = userService.CurrentUser;
-    }
-    private void EditProfile()
-    {
-        NavigationManager.NavigateTo("/EditPage");
+        if (CurrentUser != null)
+        {
+            UserTrips = await userService.GetUserTripsAsync(CurrentUser.Id.ToString());
+        }
     }
 
-    private void Cancel()
-    {
-        NavigationManager.NavigateTo("/");
+
+        private void EditProfile()
+        {
+            NavigationManager.NavigateTo("/EditPage");
+        }
+
+        private void Cancel()
+        {
+            NavigationManager.NavigateTo("/");
+        }
     }
-}
