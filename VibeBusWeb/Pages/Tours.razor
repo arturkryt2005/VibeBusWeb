@@ -1,7 +1,172 @@
 ﻿@page "/Tours"
+@inject DbConnectionContext dbContext
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
+@using Microsoft.EntityFrameworkCore;
+@using VibeBusWeb.Data
+@inject UserService userService
 
 <Header />
 
-@code {
+<div class="container">
+    <h1 class="viborh1">Выберите путь</h1>
 
+    <div class="form-group">
+        <label for="city1">Город Отправления:</label>
+        <select class="form-control" id="city1" @onchange="ChangeCity">
+            @foreach (var city in Cities)
+            {
+  
+                    <option value="@city.Id">@city.Name</option>
+
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="city2">Город Прибытия:</label>
+        <select class="form-control" id="city2" @onchange="ChangeCity2">
+            @foreach (var city in Cities)
+            {
+                if (city.Id != selectedCityId)
+                {
+                    <option value="@city.Id">@city.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+        <button class="editbut2" @onclick="AcceptBooking">Выбрать тур</button>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
+
+    private List<Cities> Cities = new List<Cities>();
+
+    private int selectedCityId;
+    private int selectedCityId2;
+
+    [Parameter]
+    public string ApplicationTicketId { get; set; } = null!;
+
+    private string Message { get; set; } = "";
+
+    private async Task AcceptBooking()
+    {
+        var selectedCity1 = await dbContext.Cities.FirstOrDefaultAsync(c => c.Id == selectedCityId);
+        var selectedCity2 = await dbContext.Cities.FirstOrDefaultAsync(c => c.Id == selectedCityId2);
+
+        //var result = emailService.SendMessage(selectedCity1?.Name!, selectedCity2?.Name!);
+        //Message = result.ErrorMessage;
+
+        StateHasChanged();
+        NavigationManager.NavigateTo("/SuccessPage");
+    }
+
+    protected override void OnInitialized()
+    {
+        LoadCities();
+    }
+
+    private void LoadCities()
+    {
+        Cities = dbContext.Cities.ToList();
+        if (Cities.Any())
+        {
+            selectedCityId = Cities.First().Id;
+            selectedCityId2 = Cities.Last().Id; 
+            StateHasChanged();
+        }
+    }
+
+    private void ChangeCity(ChangeEventArgs e)
+    {
+        selectedCityId = Convert.ToInt32(e.Value);
+    }
+
+    private void ChangeCity2(ChangeEventArgs e)
+    {
+        selectedCityId2 = Convert.ToInt32(e.Value);
+    }
 }
+
+<style>
+    .editbut2 {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: palegreen;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+        display: flex;
+    }
+
+        .editbut2:hover {
+        background-color: #0056b3;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 50%;
+        background-image: url('https://i.ibb.co/sVF0gMf/image.png');
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .viborh1 {
+        text-align: center;
+        font-family: Montserrat Black;
+        color: black;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    select.form-control {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23000000'%3E%3Cpath d='M10 12l-6-6 1.5-1.5L10 9l4.5-4.5L16 6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+    }
+
+    .select-wrapper {
+        position: relative;
+    }
+
+        .select-wrapper::after {
+            content: "\25BC";
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+    .option-hidden {
+        display: none;
+    }
+
+</style>
