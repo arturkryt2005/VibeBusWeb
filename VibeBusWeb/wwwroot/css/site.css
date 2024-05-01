@@ -1,7 +1,7 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: Montserrat;
 }
 
 .FooterMain {
@@ -16,6 +16,7 @@ html, body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    font-family: Mot
 }
 
 .TextHeadera {
@@ -27,15 +28,30 @@ html, body {
 }
 
 .iconFP {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     margin: 0 10px; 
     transition: transform 0.3s ease;
+    opacity: 50%;
 }
 
     .iconFP:hover {
-        transform: scale(1.03);
+        transform: scale(1.1);
+        opacity: 100%;
     }
+
+.profile-photo {
+    width: 300px;
+    height: 300px;
+    border-radius: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a:hover {
+    cursor: pointer;
+}
 
 .editbut2 {
     padding: 10px 20px;
@@ -146,6 +162,34 @@ a, .btn-link {
     margin-top: 100px;
 }
 
+.profile-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile-data {
+    flex: 1;
+    background-color: white;
+    margin: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.data-left {
+    flex: 1;
+}
+
+.data-right {
+    flex: 2;
+}
+
+.profile-tours {
+    flex: 1;
+    background-color: white;
+    margin: 10px;
+}
+
 
 .profile-container {
     max-width: 600px;
@@ -232,8 +276,18 @@ a, .btn-link {
 
 .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
+}
+
+.editdiv1{
+    flex: 1;
+    margin: 10px;
+}
+
+.editdiv2 {
+    flex: 1;
+    margin: 10px;
 }
 
 body {
@@ -284,31 +338,18 @@ body {
     justify-content: space-between;
 }
 
-.iconFP {
-    height: 55px;
-    width: 55px;
-    margin-left: 2px;
-    margin-top: 2px;
-}
-
 .TextHeadera {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: burlywood;
+    opacity: 50%;
     text-decoration: none;
-}
-
-.TextHeadera {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    padding-right: 10px;
 }
 
     .TextHeadera:hover {
         color: burlywood;
+        opacity: 100%;
     }
 
 .content {

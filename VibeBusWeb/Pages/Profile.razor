@@ -6,77 +6,88 @@
 
     <Header />
 
-    <div class="profile-container">
+    <div class="flex-profile">
         @if (CurrentUser != null){
-            <p class="nameee">Имя:</p>
 
-        <h1 class="Name">@userService.CurrentUser.Name</h1>
+        <div class="profile-data">
 
-            <p class="nameee">Фамилия: </p>
+            <div class="data-left">
+                <img class="profile-photo" src="../images/traveler.png" />
 
-        <h1 class="SurName">@userService.CurrentUser.Surname</h1>
+                <div class="buttons">
+                    <div class="editdiv1">
+                        <button @onclick="EditProfile" class="editbut">Редактировать</button>
+                    </div>
 
-            <p class="nameee">Почта:</p>
-
-        <h1 class="SurName">@userService.CurrentUser.Email</h1>
-
-            <p class="nameee">Номер телефона:</p>
-
-        <h1 class="SurName">@userService.CurrentUser.PhoneNumber</h1>
-
-            <div class="buttons">
-                <div class="editdiv">
-                    <button @onclick="EditProfile" class="editbut">Редактировать профиль</button>
-                </div>
-
-                <div class="editdiv">
-                    <button @onclick="Cancel" class="editbut">Выйти из аккаунта</button>
+                    <div class="editdiv2">
+                        <button @onclick="Cancel" class="editbut">Выйти из аккаунта</button>
+                    </div>
                 </div>
             </div>
+
+            <div class="data-right">
+                <p class="nameee">Имя:</p>
+                <h1 class="Name">@userService.CurrentUser.Name</h1>
+
+                <p class="nameee">Фамилия: </p>
+                <h1 class="SurName">@userService.CurrentUser.Surname</h1>
+
+                <p class="nameee">Почта:</p>
+                <h1 class="SurName">@userService.CurrentUser.Email</h1>
+
+                <p class="nameee">Номер телефона:</p>
+                <h1 class="SurName">@userService.CurrentUser.PhoneNumber</h1>
+            </div>
+        </div>
+
+        <div class="profile-tours">
+            <h2>Поездки пользователя</h2>
+
+            @if (UserTrips != null && UserTrips.Any())
+            {
+                <ul>
+                    @foreach (var trip in UserTrips)
+                    {
+                        var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
+                        var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
+
+                        <li>
+                            @if (departureCity != null && destinationCity != null)
+                            {
+                                <span>@departureCity.Name - @destinationCity.Name</span>
+                                @if (trip.DepartureTime != null)
+                                {
+                                    <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                                    <p>Дата прибытия: @trip.DestinationTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                                }
+                                else
+                                {
+                                    <p>Информация о маршруте не доступна.</p>
+                                }
+                            }
+                            else
+                            {
+                                <p>Информация о городах не доступна.</p>
+                            }
+                        </li>
+                    }
+                </ul>
             }
+            else
+            {
+                <p>У пользователя пока нет поездок.</p>
+            }
+        </div>
+        }
+
         else
         {
-        <p>Данные пользователя не загружены.</p>
+            <p>Данные пользователя не загружены.</p>
         }
-        <h2>Поездки пользователя</h2>
+    </div>
 
-    @if (UserTrips != null && UserTrips.Any())
-    {
-        <ul>
-            @foreach (var trip in UserTrips)
-            {
-                var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
-                var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
-
-                <li>
-                    @if (departureCity != null && destinationCity != null)
-                    {
-                        <span>@departureCity.Name - @destinationCity.Name</span>
-                        @if (trip.DepartureTime != null)
-                        {
-                            <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
-                            <p>Дата прибытия: @trip.DestinationTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
-                        }
-                        else
-                        {
-                            <p>Информация о маршруте не доступна.</p>
-                        }
-                    }
-                    else
-                    {
-                        <p>Информация о городах не доступна.</p>
-                    }
-                </li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>У пользователя пока нет поездок.</p>
-    }
-
-
-
+    <div class="profile-container">
+        
     </div>
 
     @code {
