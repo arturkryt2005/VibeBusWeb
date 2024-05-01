@@ -35,12 +35,12 @@
 
     <div class="form-group">
         <label for="date">Дата отправления:</label>
-        <input class="form-control" type="date" id="date" @bind="DepartureDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(3).ToString("yyyy-MM-dd")" />
+        <input class="form-control" type="date" id="date" @bind="DepartureDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")" onkeydown="return false;" />
     </div>
 
     <div class="form-group">
         <label for="date">Дата прибытия:</label>
-        <input class="form-control" type="date" id="date" @bind="DestinatonDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")" />
+        <input class="form-control" type="date" id="date" @bind="DestinatonDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(3).ToString("yyyy-MM-dd")" onkeydown="return false;" />
     </div>
     @if (DestinatonDate < DepartureDate)
     {
