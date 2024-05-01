@@ -11,8 +11,9 @@ builder.Services.AddDbContext<DbConnectionContext>(options =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IEmailService, CustomEmailService>(); // Добавьте эту строку
+
 
 var app = builder.Build();
 

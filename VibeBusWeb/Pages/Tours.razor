@@ -4,6 +4,7 @@
 @using Microsoft.EntityFrameworkCore;
 @using VibeBusWeb.Data
 @inject UserService userService
+@inject IEmailService emailService;
 
 <Header />
 
@@ -47,7 +48,7 @@
         <p style="color:red;">Дата прибытия не может быть раньше даты отправления.</p>
     }
     <div style="display: flex; justify-content: center;">
-        <button class="editbut2" @onclick="AcceptBooking">Выбрать тур</button>
+        <button class="editbut2" @onclick="AcceptBooking">Подтвердить Тур</button>
     </div>
 </div>
 
@@ -84,13 +85,20 @@
                 UserId = userService.CurrentUser?.Id ?? 0
             };
 
-
         dbContext.Routes.Add(selectedRoute);
         await dbContext.SaveChangesAsync();
 
-        StateHasChanged();
-//сюда почту
-        NavigationManager.NavigateTo("/Profile");
+        var selectedCity = Cities.FirstOrDefault(c => c.Id == selectedCityId)?.Name;
+        var result = await emailService.SendMessage(selectedCity, DepartureDate);
+
+        if (result.Success)
+        {
+            NavigationManager.NavigateTo("/Profile");
+        }
+        else
+        {
+            Message = $"Ошибка при отправке письма: {result.ErrorMessage}";
+        }
     }
 
     protected override void OnInitialized()
