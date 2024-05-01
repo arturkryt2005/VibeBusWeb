@@ -44,6 +44,8 @@
         <div class="profile-tours">
             <h2>Поездки пользователя</h2>
 
+
+
             @if (UserTrips != null && UserTrips.Any())
             {
                 var pastTrips = UserTrips.Where(trip => trip.DestinationTime < DateTime.Now).OrderByDescending(trip => trip.DestinationTime).ToList();
