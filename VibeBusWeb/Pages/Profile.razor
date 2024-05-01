@@ -41,7 +41,7 @@
         </div>
 
         <div class="profile-tours">
-            <h2>Поездки пользователя</h2>
+            <h2>Мои поездки</h2>
 
             @if (UserTrips != null && UserTrips.Any())
             {
@@ -75,20 +75,20 @@
             }
             else
             {
-                <p>У пользователя пока нет поездок.</p>
+                <p class="NotTrips">У вас ещё нет поездок.</p>
             }
         </div>
         }
 
         else
         {
-            <p>Данные пользователя не загружены.</p>
+        <p class="NotData">Данные пользователя не загружены.</p>
         }
     </div>
 
-    <div class="profile-container">
-        
-    </div>
+    <Footer>
+
+    </Footer>
 
     @code {
         [Inject]

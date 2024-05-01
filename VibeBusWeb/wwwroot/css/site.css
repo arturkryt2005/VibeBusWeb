@@ -44,9 +44,9 @@ html, body {
     width: 300px;
     height: 300px;
     border-radius: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border: solid 5px green;
+    background-color: gray;
+    margin-left: 65px;
 }
 
 a:hover {
@@ -150,8 +150,6 @@ a, .btn-link {
     display: block;
 }
 
-
-
 .login-form {
     max-width: 400px;
     margin: 0 auto;
@@ -162,18 +160,33 @@ a, .btn-link {
     margin-top: 100px;
 }
 
-.profile-container {
+.flex-profile {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flex-profile h1 {
+    color: white;
+}
+
+.flex-profile h2 {
+    color: white;
+}
+
+.flex-profile p {
+    color: white;
+    opacity: 50%;
 }
 
 .profile-data {
     flex: 1;
     background-color: white;
     margin: 10px;
-
-    display: flex;
-    flex-wrap: wrap;
+    width: 50%;
+    border-radius: 30px;
+    background-color: #252525;
+    align-items: center;
+    padding: 40px;
 }
 
 .data-left {
@@ -185,11 +198,32 @@ a, .btn-link {
 }
 
 .profile-tours {
-    flex: 1;
+    flex: 3;
     background-color: white;
     margin: 10px;
+    border-radius: 30px;
+    background-color: lightgray;
+    background-color: #252525;
 }
 
+.profile-tours h2 {
+    font-family: Montserrat SemiBold;
+    font-size: 30px;
+    margin: 20px 0px 0px 40px;
+}
+
+.NotTrips {
+    font-family: Montserrat SemiBold;
+    font-size: 20px;
+    color: red;
+    margin: 10px 0px 0px 40px;
+}
+
+.NotData {
+    font-family: Montserrat SemiBold;
+    font-size: 20px;
+    color: red;
+}
 
 .profile-container {
     max-width: 600px;
@@ -278,6 +312,8 @@ a, .btn-link {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .editdiv1{
@@ -285,9 +321,19 @@ a, .btn-link {
     margin: 10px;
 }
 
+.editdiv1 button {
+    background-color: darkgreen;
+    color: white;
+}
+
 .editdiv2 {
     flex: 1;
     margin: 10px;
+}
+
+.editdiv2 button {
+    background-color: darkred;
+    color: white;
 }
 
 body {
@@ -322,7 +368,7 @@ body {
 }
 
 .HeaderMain {
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxkhe_HvL3UWbcZiCxKJn8asdma0AkJ2JChxZHFtKDZg&s');
+    background-color: #252525;
     background-size: cover;
     background-repeat: no-repeat;
     height: 55px;
