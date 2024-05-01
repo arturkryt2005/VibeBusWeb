@@ -20,6 +20,7 @@ namespace VibeBusWeb.Data
         {
             const string urlBackground = "https://photogora.ru/img/product/thumb/4947/5d2ef838a9cc69778828569119077791.jpg";
             const string urlLogo = "https://326605.selcdn.ru/03005/iblock/340/logotip-KAI.jpg";
+            var formattedDepartureDate = departureDate.Date;
 
             try
             {

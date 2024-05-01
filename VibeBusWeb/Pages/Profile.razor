@@ -1,13 +1,14 @@
-﻿    @page "/Profile"
-    @inject Microsoft.JSInterop.IJSRuntime JSRuntime
-    @using VibeBusWeb.Data
-    @inject DbConnectionContext dbContext
-    @inject UserService userService
+﻿@page "/Profile"
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
+@using VibeBusWeb.Data
+@inject DbConnectionContext dbContext
+@inject UserService userService
 
-    <Header />
+<Header />
 
-    <div class="flex-profile">
-        @if (CurrentUser != null){
+<div class="flex-profile">
+    @if (CurrentUser != null)
+    {
 
         <div class="profile-data">
 
@@ -45,59 +46,97 @@
 
             @if (UserTrips != null && UserTrips.Any())
             {
-                <ul>
-                    @foreach (var trip in UserTrips)
-                    {
-                        var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
-                        var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
+                var pastTrips = UserTrips.Where(trip => trip.DestinationTime < DateTime.Now).OrderByDescending(trip => trip.DestinationTime).ToList();
+                var futureTrips = UserTrips.Where(trip => trip.DestinationTime >= DateTime.Now).OrderBy(trip => trip.DestinationTime).ToList();
 
-                        <li>
-                            @if (departureCity != null && destinationCity != null)
-                            {
-                                <span>@departureCity.Name - @destinationCity.Name</span>
-                                @if (trip.DepartureTime != null)
+                if (pastTrips.Any())
+                {
+                    <h3>Прошедшие поездки:</h3>
+                    <ul>
+                        @foreach (var trip in pastTrips)
+                        {
+                            var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
+                            var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
+
+                            <li>
+                                @if (departureCity != null && destinationCity != null)
                                 {
-                                    <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
-                                    <p>Дата прибытия: @trip.DestinationTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                                    <span>@departureCity.Name - @destinationCity.Name</span>
+                                    @if (trip.DepartureTime != null)
+                                    {
+                                        <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                                        <p>Дата прибытия: @trip.DestinationTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Информация о маршруте не доступна.</p>
+                                    }
                                 }
                                 else
                                 {
-                                    <p>Информация о маршруте не доступна.</p>
+                                    <p>Информация о городах не доступна.</p>
                                 }
-                            }
-                            else
-                            {
-                                <p>Информация о городах не доступна.</p>
-                            }
-                        </li>
-                    }
-                </ul>
+                            </li>
+                        }
+                    </ul>
+                }
+
+                if (futureTrips.Any())
+                {
+                    <h3>Будущие поездки:</h3>
+                    <ul>
+                        @foreach (var trip in futureTrips)
+                        {
+                            var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
+                            var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
+
+                            <li>
+                                @if (departureCity != null && destinationCity != null)
+                                {
+                                    <span>@departureCity.Name - @destinationCity.Name</span>
+                                    @if (trip.DepartureTime != null)
+                                    {
+                                        <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                                        <p>Дата прибытия: @trip.DestinationTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Информация о маршруте не доступна.</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>Информация о городах не доступна.</p>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
             }
             else
             {
                 <p>У пользователя пока нет поездок.</p>
             }
         </div>
-        }
+    }
 
-        else
-        {
-            <p>Данные пользователя не загружены.</p>
-        }
-    </div>
+    else
+    {
+        <p>Данные пользователя не загружены.</p>
+    }
+</div>
 
-    <div class="profile-container">
-        
-    </div>
+<div class="profile-container">
+</div>
 
-    @code {
-        [Inject]
+@code {
+    [Inject]
 
-        private NavigationManager NavigationManager { get; set; } = null!;
+    private NavigationManager NavigationManager { get; set; } = null!;
 
-        private Users CurrentUser { get; set; } = null!;
+    private Users CurrentUser { get; set; } = null!;
 
-        private List<Routes> UserTrips { get; set; } = null!;
+    private List<Routes> UserTrips { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -109,13 +148,13 @@
     }
 
 
-        private void EditProfile()
-        {
-            NavigationManager.NavigateTo("/EditPage");
-        }
-
-        private void Cancel()
-        {
-            NavigationManager.NavigateTo("/");
-        }
+    private void EditProfile()
+    {
+        NavigationManager.NavigateTo("/EditPage");
     }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}
