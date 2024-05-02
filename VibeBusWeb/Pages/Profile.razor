@@ -53,7 +53,7 @@
 
                 if (pastTrips.Any())
                 {
-                    <h3>Прошедшие поездки:</h3>
+                    <h3 class="h3poezdok">Прошедшие:</h3>
                     <ul>
                         @foreach (var trip in pastTrips)
                         {
@@ -63,7 +63,7 @@
                             <li>
                                 @if (departureCity != null && destinationCity != null)
                                 {
-                                    <span>@departureCity.Name - @destinationCity.Name</span>
+                                    <span class="spanCities">@departureCity.Name - @destinationCity.Name</span>
                                     @if (trip.DepartureTime != null)
                                     {
                                         <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
@@ -85,7 +85,7 @@
 
                 if (futureTrips.Any())
                 {
-                    <h3>Будущие поездки:</h3>
+                    <h3 class="h3poezdok">Будущие:</h3>
                     <ul>
                         @foreach (var trip in futureTrips)
                         {
@@ -95,7 +95,7 @@
                             <li>
                                 @if (departureCity != null && destinationCity != null)
                                 {
-                                    <span>@departureCity.Name - @destinationCity.Name</span>
+                                    <span class="spanCities">@departureCity.Name - @destinationCity.Name</span>
                                     @if (trip.DepartureTime != null)
                                     {
                                         <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy HH:mm:ss")</p>
@@ -121,6 +121,7 @@
             }
         </div>
     }
+</div>
 
 @code {
     [Inject]
