@@ -29,13 +29,13 @@ html, body {
     flex-wrap: wrap;
 }
 
-.imagge {
-    width: 60%;
-    height: 60%;
-    border-radius: 14px;
-    text-align: center;
-    margin-left: 20%;
-}
+    .imagge {
+        width: 60%;
+        height: 60%;
+        border-radius: 14px;
+        text-align: center;
+        margin-left: 20%;
+    }
 
 .ZagolovokStran {
     text-align: center;
@@ -85,34 +85,50 @@ html, body {
 }
 
 .Svyaz {
+    margin-top: 40px;
     border: 2px solid green;
-    border-radius: 10px;
-    width: 16%;
+    border-radius: 30px;
+    width: 22%;
 }
 
 .Svyaz2 {
-    color: black;
-    font-family: Montserrat;
+    color: white;
+    font-family: Montserrat SemiBold;
+    font-size: 20px;
     margin-left: 2px;
     margin-right: 2px;
     text-decoration: none;
+    padding-left: 20px;
 }
 
 .contbase {
-    border-radius: 15px;
-    margin: 5% 7%;
+    border-radius: 30px;
+    margin: 5% 7% 5% 7%;
     padding: 20px;
-    background-image: url('https://cerenas.club/uploads/posts/2022-12/thumbs/1670966975_cerenas-club-p-svetlo-zelenii-fon-odnotonnii-krasivo-5.jpg');
+    background-color: #252525;
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
 }
 
+.h1TextAboutUs {
+    padding-top: 20px;
+}
+
+.textTextAboutUs {
+    font-family: Montserrat;
+    font-size: 20px;
+    margin-top: 30px;
+    padding: 0 65px;
+    padding-bottom: 20px;
+}
+
 .ava1 {
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
     width: 20%;
     margin-right: 10px;
+    border: solid 5px green;
 }
 
     .ava1 img {
@@ -123,28 +139,32 @@ html, body {
 .text-wrapper {
     flex: 1;
     overflow: hidden;
+    margin-left: 50px;
+    margin-top: 50px;
 }
 
 .Bakasov {
-    font-family: Montserrat Black;
+    font-family: Montserrat SemiBold;
+    font-size: 40px;
     margin-bottom: 10px;
     margin-right: 8px;
+    color: white;
 }
 
 .Bakaopis {
+    margin-top: 20px;
+    color: white;
     font-family: Montserrat;
-    color: black;
+    font-size: 20px;
     word-wrap: break-word;
+    opacity: 60%;
 }
 
 .Svyaz2:hover {
-    color: darkgray;
+    color: white;
 }
 
-.spanCities{
-    color:white;
-    font-family: Montserrat Light;
-}
+
 
 .h3poezdok {
     color: white;
@@ -189,14 +209,17 @@ a:hover {
 .editbut2 {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: palegreen;
+    background-color: green;
     color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-align: center;
     display: flex;
+    color: white;
+    font-family: Montserrat SemiBold;
+    font-size: 20px;
 }
 
     .editbut2:hover {
@@ -208,19 +231,20 @@ a:hover {
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
-    border-radius: 10px;
+    border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: absolute;
     top: 50%;
-    background-image: url('https://i.ibb.co/sVF0gMf/image.png');
+    background-color: #252525;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .viborh1 {
     text-align: center;
-    font-family: Montserrat Black;
-    color: black;
+    font-family: Montserrat SemiBold;
+    color: white;
+    margin-bottom: 30px;
 }
 
 .form-group {
@@ -286,11 +310,23 @@ a, .btn-link {
 .login-form {
     max-width: 400px;
     margin: 0 auto;
-    background-image: url('https://i.ibb.co/sVF0gMf/image.png');
+    background-color: #252525;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 100px;
+}
+
+.login-form h1 {
+    color: white;
+}
+
+.Vhonh {
+    background-color: white;
+    border-radius: 30px;
+    height: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .flex-profile {
@@ -420,8 +456,7 @@ a, .btn-link {
 
 .Name, .SurName {
     font-size: 24px;
-    font-weight: bold;
-    color: #333;
+    color: white;
 }
 
 
@@ -449,7 +484,36 @@ a, .btn-link {
     margin-bottom: 20px;
 }
 
-.editdiv1{
+.haveTrip {
+    margin-top: 2%;
+    width: 60%;
+    border: solid 3px #5f7d52;
+    border-radius: 30px;
+    color: white;
+    padding-top: 2%;
+    padding-left: 5%;
+}
+
+.haveTrip:hover {
+    background-color: #3e4d37;
+    border-color: white;
+}
+
+.spanCities {
+    color: white;
+    font-family: Montserrat Medium;
+    font-size: 25px;
+}
+
+.havep {
+    margin-top: 1%;
+    padding-bottom: 1%;
+    font-family: Montserrat;
+    font-size: 16px;
+    color: white;
+}
+
+.editdiv1 {
     flex: 1;
     margin: 10px;
 }
