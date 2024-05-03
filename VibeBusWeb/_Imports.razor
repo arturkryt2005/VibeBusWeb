@@ -9,3 +9,9 @@
 @using VibeBusWeb
 @using VibeBusWeb.Shared
 @using Microsoft.EntityFrameworkCore;
+@using VibeBusWeb.Data
+@inject DbConnectionContext dbContext
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
+@inject UserService userService
+@inject IEmailService emailService;
+@using System.Text.RegularExpressions;

@@ -19,6 +19,128 @@ html, body {
     font-family: Mot
 }
 
+.allcountries {
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.imagge {
+    width: 60%;
+    height: 60%;
+    border-radius: 14px;
+    text-align: center;
+    margin-left: 20%;
+}
+
+.ZagolovokStran {
+    text-align: center;
+    font-family: Montserrat Semibold;
+    color: white;
+    font-size: 30px;
+}
+
+.OpisStran {
+    font-family: Montserrat Regular;
+    text-align: center;
+    color: white;
+    margin-top: 5px;
+}
+
+.OpisStran2 {
+    font-family: Montserrat Regular;
+    text-align: center;
+    color: white;
+}
+
+.Town {
+    width: 320px;
+    height: 230px;
+    background-color: #252525;
+    background-repeat: no-repeat;
+    border-radius: 14px;
+    text-decoration: none;
+    padding-top: 20px;
+    margin: 20px;
+}
+
+.Countries {
+    font-family: Montserrat Semibold;
+    text-align: center;
+}
+
+.Countriesh1 {
+    border-radius: 15px;
+    color: white;
+    margin-top: 40px;
+    margin-right: 25%;
+    margin-left: 25%;
+    background-color: #252525;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.Svyaz {
+    border: 2px solid green;
+    border-radius: 10px;
+    width: 16%;
+}
+
+.Svyaz2 {
+    color: black;
+    font-family: Montserrat;
+    margin-left: 2px;
+    margin-right: 2px;
+    text-decoration: none;
+}
+
+.contbase {
+    border-radius: 15px;
+    margin: 5% 7%;
+    padding: 20px;
+    background-image: url('https://cerenas.club/uploads/posts/2022-12/thumbs/1670966975_cerenas-club-p-svetlo-zelenii-fon-odnotonnii-krasivo-5.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+}
+
+.ava1 {
+    border-radius: 15px;
+    overflow: hidden;
+    width: 20%;
+    margin-right: 10px;
+}
+
+    .ava1 img {
+        width: 100%;
+        display: block;
+    }
+
+.text-wrapper {
+    flex: 1;
+    overflow: hidden;
+}
+
+.Bakasov {
+    font-family: Montserrat Black;
+    margin-bottom: 10px;
+    margin-right: 8px;
+}
+
+.Bakaopis {
+    font-family: Montserrat;
+    color: black;
+    word-wrap: break-word;
+}
+
+.Svyaz2:hover {
+    color: darkgray;
+}
+
 .spanCities{
     color:white;
     font-family: Montserrat Light;

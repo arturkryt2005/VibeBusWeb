@@ -1,8 +1,4 @@
 ﻿@page "/"
-@using VibeBusWeb.Data
-@inject Microsoft.JSInterop.IJSRuntime JSRuntime
-@inject DbConnectionContext dbContext
-@inject UserService userService
 
 <PageTitle>Главная страница</PageTitle>
 
@@ -49,6 +45,7 @@
         var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == _email && u.Password == _password);
         if (user != null)
         {
+
             userService.CurrentUser = user;
             NavigationManager.NavigateTo("/Profile");
         }
