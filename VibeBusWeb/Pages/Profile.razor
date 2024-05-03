@@ -49,7 +49,6 @@
 
                 if (pastTrips.Any())
                 {
-                    <h3 class="h3poezdok">Прошедшие:</h3>
                     <ul>
                         @foreach (var trip in pastTrips)
                         {
@@ -57,13 +56,18 @@
                             var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
 
                             <li>
+                                <div class="haveTrip">
                                 @if (departureCity != null && destinationCity != null)
                                 {
-                                    <span class="spanCities">@departureCity.Name - @destinationCity.Name</span>
+
                                     @if (trip.DepartureTime != null)
                                     {
-                                        <p>Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy")</p>
-                                        <p>Дата прибытия: @trip.DestinationTime.ToString("dd.MM.yyyy")</p>
+                                        
+                                            <span class="spanCities">@departureCity.Name - @destinationCity.Name</span>
+
+                                            <p class="havep">Дата отправления: @trip.DepartureTime.ToString("dd.MM.yyyy")</p>
+                                            <p class="havep">Дата прибытия: @trip.DestinationTime.ToString("dd.MM.yyyy")</p>
+                                        
                                     }
                                     else
                                     {
@@ -74,6 +78,7 @@
                                 {
                                     <p>Информация о городах не доступна.</p>
                                 }
+                                </div>
                             </li>
                         }
                     </ul>
