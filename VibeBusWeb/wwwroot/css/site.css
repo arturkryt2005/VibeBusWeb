@@ -88,7 +88,7 @@ html, body {
     margin-top: 40px;
     border: 2px solid green;
     border-radius: 30px;
-    width: 22%;
+    width: 27%;
 }
 
 .Svyaz2 {
@@ -129,10 +129,11 @@ html, body {
     width: 20%;
     margin-right: 10px;
     border: solid 5px green;
+    
 }
 
     .ava1 img {
-        width: 100%;
+        width: 120%;
         display: block;
     }
 
@@ -162,6 +163,7 @@ html, body {
 
 .Svyaz2:hover {
     color: white;
+
 }
 
 

@@ -94,6 +94,7 @@
                             var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
 
                             <li>
+                                <div class="haveTrip">
                                 @if (departureCity != null && destinationCity != null)
                                 {
                                     <span class="spanCities">@departureCity.Name - @destinationCity.Name</span>
@@ -111,6 +112,7 @@
                                 {
                                     <p>Информация о городах не доступна.</p>
                                 }
+                                </div>
                             </li>
                         }
                     </ul>
