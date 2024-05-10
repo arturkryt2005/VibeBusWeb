@@ -17,41 +17,8 @@
 
     <div class="buttons">
         <button type="submit" class="btn btn-primary" @onclick="Login">Войти</button>
-        <button @onclick="RedirectToRegistrationPage" class=" btn btn-link">Нет аккаунта?</button>
+        <button @onclick="RedirectToRegistrationPage" class="btn btn-link">Нет аккаунта?</button>
     </div>
 </div>
 
-<Footer />
-@code {
-    private void RedirectToRegistrationPage()
-    {
-        NavigationManager.NavigateTo("/RegistrationPage");
-    }
-
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = null!;
-
-    private string _email = null!;
-    private string _password = null!;
-
-    private async Task Login()
-    {
-        if (string.IsNullOrEmpty(_email) || string.IsNullOrEmpty(_password))
-        {
-            await JSRuntime.InvokeVoidAsync("alert", "Пожалуйста, заполните все обязательные поля.");
-            return;
-        }
-
-        // var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == _email && u.Password == _password);
-        // if (user != null)
-        // {
-
-        //     testUserService.CurrentUser = user;
-        //     NavigationManager.NavigateTo("/Profile");
-        // }
-        // else
-        // {
-        //     await JSRuntime.InvokeVoidAsync("alert", "Неверный адрес электронной почты или пароль.");
-        // }
-    }
-}
+<Footer></Footer>

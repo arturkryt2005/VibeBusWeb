@@ -1,76 +1,38 @@
 ﻿@page "/EditPage"
-@using VibeBusWeb.Services
-<Header />
-<Footer />
+
+<Header></Header>
+<Footer></Footer>
 
 <div class="profile-edit-form">
     <h1 class="Izmen">Изменение данных</h1>
+    
+    @if(CurrentUser != null)
+    {
+	    <div class="form-group">
+		    <label for="firstName" class="editnameandmore">Имя:</label>
+		    <input type="text" maxlength="15" id="firstName" class="form-control" oninput="this.value = this.value.replace(/[^a-zA-Zа-яА-Я]/g, '')" @bind="CurrentUser.Name" required/>
+	    </div>
 
-    <div class="form-group">
-        <label for="firstName" class="editnameandmore">Имя:</label>
-        <input type="text" maxlength="15" id="firstName" class="form-control" oninput="this.value = this.value.replace(/[^a-zA-Zа-яА-Я]/g, '')" @bind="CurrentUser.Name" required />
-    </div>
+	    <div class="form-group">
+		    <label for="lastName" class="editnameandmore">Фамилия:</label>
+		    <input type="text" maxlength="20" id="lastName" class="form-control" oninput="this.value = this.value.replace(/[^a-zA-Zа-яА-Я]/g, '')" @bind="CurrentUser.Surname" required/>
+	    </div>
 
-    <div class="form-group">
-        <label for="lastName" class="editnameandmore">Фамилия:</label>
-        <input type="text" maxlength="20" id="lastName" class="form-control" oninput="this.value = this.value.replace(/[^a-zA-Zа-яА-Я]/g, '')" @bind="CurrentUser.Surname" required />
-    </div>
+	    <div class="form-group">
+		    <label for="email" class="editnameandmore">Почта:</label>
+		    <input type="email" maxlength="30" id="email" class="form-control" @bind="CurrentUser.Email" required/>
+	    </div>
 
-    <div class="form-group">
-        <label for="email" class="editnameandmore">Почта:</label>
-        <input type="email" maxlength="30" id="email" class="form-control" @bind="CurrentUser.Email" required />
-    </div>
-
-    <div class="form-group">
-        <label for="phoneNumber" class="editnameandmore">Номер телефона:</label>
-        <input type="tel" id="phoneNumber" class="form-control"
-               minlength="11" maxlength="11"
-               title="Введите 11 цифр"
-               oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
-               @bind="CurrentUser.PhoneNumber"
-               required />
-    </div>
+	    <div class="form-group">
+		    <label for="phoneNumber" class="editnameandmore">Номер телефона:</label>
+		    <input type="tel" id="phoneNumber" class="form-control"
+		           minlength="11" maxlength="11"
+		           title="Введите 11 цифр"
+		           oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+		           @bind="CurrentUser.PhoneNumber"
+		           required/>
+	    </div>
+    }
 
     <button class="btnedit" @onclick="SaveChanges">Сохранить изменения</button>
 </div>
-
-@code {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = null!;
-
-    [Inject]
-    private UserService UserService { get; set; } = null!;
-
-    private User CurrentUser { get; set; } = null!;
-
-    protected override void OnInitialized()
-    {
-        CurrentUser = UserService.CurrentUser;
-        StateHasChanged();
-    }
-
-    private async Task SaveChanges()
-    {
-        if (CurrentUser.PhoneNumber.Length < 11)
-        {
-            await JSRuntime.InvokeVoidAsync("alert", "Номер телефона должен содержать как минимум 11 цифр.");
-            return; 
-        }
-
-        if (!CurrentUser.Email.Contains("@"))
-        {
-            await JSRuntime.InvokeVoidAsync("alert", "Некорректный адрес электронной почты.");
-            return;
-        }
-
-        // var existingUser = dbContext.Users.FirstOrDefault(c => c.Id == CurrentUser.Id);
-
-        // dbContext.Users.Update(CurrentUser);
-        // await dbContext.SaveChangesAsync();
-
-        // CurrentUser = dbContext.Users.FirstOrDefault(c => c.Id == existingUser.Id);
-        // StateHasChanged();
-
-        NavigationManager.NavigateTo("/Profile");
-    }
-}

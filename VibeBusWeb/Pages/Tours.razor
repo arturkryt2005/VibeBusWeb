@@ -1,8 +1,7 @@
 ﻿@page "/Tours"
-@using VibeBusWeb.Services
 
-<Header />
-<Footer />
+<Header></Header>
+<Footer></Footer>
 
 <div class="container">
     <h1 class="viborh1">Выберите путь</h1>
@@ -10,7 +9,7 @@
     <div class="form-group">
         <label for="city1">Город Отправления:</label>
         <select class="form-control" id="city1" @onchange="ChangeCity">
-            @foreach (var city in Cities)
+            @foreach (var city in _cities)
             {
                 <option value="@city.Id">@city.Name</option>
             }
@@ -20,9 +19,9 @@
     <div class="form-group">
         <label for="city2">Город Прибытия:</label>
         <select class="form-control" id="city2" @onchange="ChangeCity2">
-            @foreach (var city in Cities)
+            @foreach (var city in _cities)
             {
-                if (city.Id != selectedCityId)
+                if (city.Id != _selectedCityId)
                 {
                     <option value="@city.Id">@city.Name</option>
                 }
@@ -32,14 +31,14 @@
 
     <div class="form-group">
         <label for="date">Дата отправления:</label>
-        <input class="form-control" type="date" id="date" @bind="DepartureDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")" onkeydown="return false;" />
+        <input class="form-control" type="date" id="date" @bind="_departureDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")" onkeydown="return false;" />
     </div>
 
     <div class="form-group">
         <label for="date">Дата прибытия:</label>
-        <input class="form-control" type="date" id="date" @bind="DestinatonDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(3).ToString("yyyy-MM-dd")" onkeydown="return false;" />
+        <input class="form-control" type="date" id="date" @bind="_destinationDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(3).ToString("yyyy-MM-dd")" onkeydown="return false;" />
     </div>
-    @if (DestinatonDate < DepartureDate)
+    @if (_destinationDate < _departureDate)
     {
         <p style="color:red;">Дата прибытия не может быть раньше даты отправления.</p>
     }
@@ -47,90 +46,3 @@
         <button class="editbut2" @onclick="AcceptBooking">Подтвердить</button>
     </div>
 </div>
-
-@code {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = null!;
-
-    [Inject]
-    private UserService UserService { get; set; } = null!;
-
-    private List<City> Cities = new List<City>();
-
-    private int selectedCityId;
-
-    private int selectedCityId2;
-
-    private DateTime DepartureDate = DateTime.Today; 
-
-    private DateTime DestinatonDate = DateTime.Today;
-    
-    [Parameter]
-    public string ApplicationTicketId { get; set; } = null!;
-
-    private string Message { get; set; } = "";
-
-    private async Task AcceptBooking()
-    {
-        if (DestinatonDate < DepartureDate)
-        {
-            Message = "Дата прибытия не может быть раньше даты отправления.";
-            return;
-        }
-        var selectedRoute = new Route
-            {
-                DeparturePointId = selectedCityId,
-                DestinationPointId = selectedCityId2,
-                DepartureTime = DepartureDate,
-                DestinationTime = DestinatonDate,
-                UserId = UserService.CurrentUser?.Id ?? 0
-            };
-
-        // dbContext.Routes.Add(selectedRoute);
-        // await dbContext.SaveChangesAsync();
-
-        var selectedCity = Cities.FirstOrDefault(c => c.Id == selectedCityId)?.Name;
-        var result = await emailService.SendMessage(selectedCity, DepartureDate);
-
-        if (result.Success)
-        {
-            NavigationManager.NavigateTo("/Profile");
-        }
-        else
-        {
-            Message = $"Ошибка при отправке письма: {result.ErrorMessage}";
-        }
-    }
-
-    protected override void OnInitialized()
-    {
-        LoadCities();
-    }
-
-    private void LoadCities()
-    {
-        // Cities = dbContext.Cities.ToList();
-        // if (Cities.Any())
-        // {
-        //     selectedCityId = Cities.First().Id;
-        //     selectedCityId2 = Cities.Last().Id; 
-        //     StateHasChanged();
-        // }
-    }
-
-    private void ChangeCity(ChangeEventArgs e)
-    {
-        if (int.TryParse(e.Value.ToString(), out int cityId))
-        {
-            selectedCityId = cityId;
-        }
-    }
-
-    private void ChangeCity2(ChangeEventArgs e)
-    {
-        if (int.TryParse(e.Value.ToString(), out int cityId))
-        {
-            selectedCityId2 = cityId;
-        }
-    }
-}
