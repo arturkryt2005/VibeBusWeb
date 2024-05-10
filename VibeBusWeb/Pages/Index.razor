@@ -42,16 +42,16 @@
             return;
         }
 
-        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == _email && u.Password == _password);
-        if (user != null)
-        {
+        // var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == _email && u.Password == _password);
+        // if (user != null)
+        // {
 
-            userService.CurrentUser = user;
-            NavigationManager.NavigateTo("/Profile");
-        }
-        else
-        {
-            await JSRuntime.InvokeVoidAsync("alert", "Неверный адрес электронной почты или пароль.");
-        }
+        //     userService.CurrentUser = user;
+        //     NavigationManager.NavigateTo("/Profile");
+        // }
+        // else
+        // {
+        //     await JSRuntime.InvokeVoidAsync("alert", "Неверный адрес электронной почты или пароль.");
+        // }
     }
 }

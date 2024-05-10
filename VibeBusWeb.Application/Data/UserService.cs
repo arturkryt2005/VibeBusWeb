@@ -1,19 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VibeBusWeb.Data;
 
-namespace VibeBusWeb
+namespace VibeBusWeb.Application.Data
 {
     public class UserService
     {
-        private readonly DbConnectionContext _dbContext;
+        private readonly IDbConnectionContext _dbContext;
 
-        public Users CurrentUser { get; set; } = null!;
+        public User CurrentUser { get; set; } = null!;
 
-        public UserService(DbConnectionContext dbContext)
+        public UserService(IDbConnectionContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<List<Routes>> GetUserTripsAsync(string userId)
+        public async Task<List<Route>> GetUserTripsAsync(string userId)
         {
             if (int.TryParse(userId, out int parsedUserId))
             {
@@ -23,7 +22,7 @@ namespace VibeBusWeb
             }
             else
             {
-                return new List<Routes>();
+                return new List<Route>();
             }
         }
 
