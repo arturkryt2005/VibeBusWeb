@@ -2,17 +2,17 @@ version: '3.4'
 services:
   db-vipe-bus:
     container_name: db-vipe-bus
-    image: mcr.microsoft.com/mssql/server:latest
+    image: postgres:latest
     environment:
-      SA_PASSWORD: "YourStrong!Passw0rd"
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: "Developer"
+      POSTGRES_DB: VibeBus
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123qweASD!@#
     ports: 
-      - "5433:1433"
+      - "5448:5432" 
     networks:
       - vipe-bus-dev
     volumes:
-      - sql-server-data:/var/opt/mssql
+      - postgres-data:/var/lib/postgresql/data
   api-vipe-bus:
     container_name: api-vipe-bus
     build: 
@@ -20,7 +20,6 @@ services:
       dockerfile: ./VibeBusWeb.Api/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Default=Server=db-vipe-bus,5433;Database=VibeBus;User=sa;Password=YourStrong!Passw0rd
     depends_on:
       - db-vipe-bus
     ports:
