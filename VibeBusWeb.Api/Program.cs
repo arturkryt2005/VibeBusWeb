@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using VibeBusWeb.Api;
 using VibeBusWeb.Database.Data;
 
 var builder = WebApplication.CreateBuilder(args);
