@@ -1,6 +1,8 @@
-﻿namespace VibeBusWeb.Application.Data;
+﻿using VibeBusWeb.Application.Data.Interfaces;
 
-public class Trip
+namespace VibeBusWeb.Application.Data;
+
+public class Trip : IHaveId
 {
     public int Id { get; set; }
 

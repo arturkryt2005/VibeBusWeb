@@ -10,13 +10,6 @@ namespace VibeBusWeb.Application.Data
 
     public class CustomEmailService : IEmailService
     {
-        private readonly UserService _userService;
-
-        public CustomEmailService(UserService userService)
-        {
-            _userService = userService;
-        }
-
         public async Task<CustomErrorMessage> SendMessage(string selectedCityName, DateTime departureDate)
         {
             const string urlBackground = "https://photogora.ru/img/product/thumb/4947/5d2ef838a9cc69778828569119077791.jpg";
@@ -36,7 +29,7 @@ namespace VibeBusWeb.Application.Data
                     From = new MailAddress("studencheskiy.sovet.kit@mail.ru")
                 };
 
-                mail.To.Add(_userService.CurrentUser.Email);
+                mail.To.Add(""); //todo
                 mail.Subject = "Подтверждение бронирования тура";
                 mail.Body =
                     $@"<!DOCTYPE html>
