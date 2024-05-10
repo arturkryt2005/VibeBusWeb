@@ -10,7 +10,7 @@ public class PrefixDocumentFilter : IDocumentFilter
         foreach (var path in swaggerDoc.Paths.ToList())
         {
             swaggerDoc.Paths.Remove(path.Key);
-            var newPathKey = "/mentors-diary-api" + path.Key;
+            var newPathKey = "/vibe-bus" + path.Key;
             swaggerDoc.Paths.Add(newPathKey, path.Value);
         }
     }
