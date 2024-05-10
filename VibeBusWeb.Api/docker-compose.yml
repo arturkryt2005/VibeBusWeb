@@ -8,7 +8,7 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_PID: "Developer"
     ports: 
-      - "5433:1433"  # Изменено порт для SQL Server
+      - "5433:1433"
     networks:
       - vipe-bus-dev
     volumes:
