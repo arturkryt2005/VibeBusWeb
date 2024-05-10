@@ -1,7 +1,7 @@
 version: '3.4'
 services:
-  db-vipe-bus:
-    container_name: db-vipe-bus
+  db-vibe-bus:
+    container_name: db-vibe-bus
     image: postgres:latest
     environment:
       POSTGRES_DB: VibeBus
@@ -10,25 +10,22 @@ services:
     ports: 
       - "5448:5432" 
     networks:
-      - vipe-bus-dev
+      - vibe-bus-dev
     volumes:
       - postgres-data:/var/lib/postgresql/data
-  api-vipe-bus:
-    container_name: api-vipe-bus
+  api-vibe-bus:
+    container_name: api-vibe-bus
     build: 
       context: ../
       dockerfile: ./VibeBusWeb.Api/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
-      - db-vipe-bus
+      - db-vibe-bus
     ports:
       - "8096:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 networks:
-  vipe-bus-dev:
+  vibe-bus-dev:
     driver: bridge
-volumes:
-  sql-server-data:
-    driver: local
