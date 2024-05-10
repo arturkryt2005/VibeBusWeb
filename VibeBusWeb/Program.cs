@@ -1,19 +1,11 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.EntityFrameworkCore;
-using VibeBusWeb;
-using VibeBusWeb.Data;
+using VibeBusWeb.Application.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddDbContext<DbConnectionContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<IEmailService, CustomEmailService>(); // Добавьте эту строку
-
+builder.Services.AddScoped<IEmailService, CustomEmailService>();
 
 var app = builder.Build();
 

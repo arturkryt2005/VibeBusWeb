@@ -52,7 +52,7 @@
                     <ul>
                         @foreach (var trip in pastTrips)
                         {
-                            var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
+                            @* var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
                             var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
 
                             <li>
@@ -79,7 +79,7 @@
                                     <p>Информация о городах не доступна.</p>
                                 }
                                 </div>
-                            </li>
+                            </li> *@
                         }
                     </ul>
                 }
@@ -90,7 +90,7 @@
                     <ul>
                         @foreach (var trip in futureTrips)
                         {
-                            var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
+                            @* var departureCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DeparturePointId);
                             var destinationCity = dbContext.Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
 
                             <li>
@@ -113,7 +113,7 @@
                                     <p>Информация о городах не доступна.</p>
                                 }
                                 </div>
-                            </li>
+                            </li> *@
                         }
                     </ul>
                 }
@@ -131,9 +131,9 @@
 
     private NavigationManager NavigationManager { get; set; } = null!;
 
-    private Users CurrentUser { get; set; } = null!;
+    private User CurrentUser { get; set; } = null!;
 
-    private List<Routes> UserTrips { get; set; } = null!;
+    private List<Route> UserTrips { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {

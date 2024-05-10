@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VibeBusWeb.Data;
+using VibeBusWeb.Database.Data;
 
 #nullable disable
 
-namespace VibeBusWeb.Migrations
+namespace VibeBusWeb.Database.Migrations
 {
     [DbContext(typeof(DbConnectionContext))]
     partial class DbConnectionContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace VibeBusWeb.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("VibeBusWeb.Data.Buses", b =>
+            modelBuilder.Entity("VibeBusWeb.Application.Data.Bus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,7 @@ namespace VibeBusWeb.Migrations
                     b.ToTable("Buses");
                 });
 
-            modelBuilder.Entity("VibeBusWeb.Data.Cities", b =>
+            modelBuilder.Entity("VibeBusWeb.Application.Data.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace VibeBusWeb.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("VibeBusWeb.Data.Drivers", b =>
+            modelBuilder.Entity("VibeBusWeb.Application.Data.Driver", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +81,7 @@ namespace VibeBusWeb.Migrations
                     b.ToTable("Drivers");
                 });
 
-            modelBuilder.Entity("VibeBusWeb.Data.Routes", b =>
+            modelBuilder.Entity("VibeBusWeb.Application.Data.Route", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,10 +106,12 @@ namespace VibeBusWeb.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Routes");
                 });
 
-            modelBuilder.Entity("VibeBusWeb.Data.Trips", b =>
+            modelBuilder.Entity("VibeBusWeb.Application.Data.Trip", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +128,7 @@ namespace VibeBusWeb.Migrations
                     b.ToTable("Trips");
                 });
 
-            modelBuilder.Entity("VibeBusWeb.Data.Users", b =>
+            modelBuilder.Entity("VibeBusWeb.Application.Data.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,6 +159,17 @@ namespace VibeBusWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("VibeBusWeb.Application.Data.Route", b =>
+                {
+                    b.HasOne("VibeBusWeb.Application.Data.User", "Users")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

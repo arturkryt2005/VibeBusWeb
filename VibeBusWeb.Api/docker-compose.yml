@@ -1,0 +1,35 @@
+version: '3.4'
+services:
+  db-vipe-bus:
+    container_name: db-vipe-bus
+    image: mcr.microsoft.com/mssql/server:latest
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports: 
+      - "5433:1433"  # Изменено порт для SQL Server
+    networks:
+      - vipe-bus-dev
+    volumes:
+      - sql-server-data:/var/opt/mssql
+  api-vipe-bus:
+    container_name: api-vipe-bus
+    build: 
+      context: ../
+      dockerfile: ./VibeBusWeb.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=Server=db-vipe-bus,5433;Database=VibeBus;User=sa;Password=YourStrong!Passw0rd
+    depends_on:
+      - db-vipe-bus
+    ports:
+      - "8096:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+networks:
+  vipe-bus-dev:
+    driver: bridge
+volumes:
+  sql-server-data:
+    driver: local

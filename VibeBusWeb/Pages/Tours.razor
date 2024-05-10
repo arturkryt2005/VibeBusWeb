@@ -51,7 +51,7 @@
     [Inject]
     private NavigationManager NavigationManager { get; set; } = null!;
 
-    private List<Cities> Cities = new List<Cities>();
+    private List<City> Cities = new List<City>();
 
     private int selectedCityId;
     private int selectedCityId2;
@@ -71,7 +71,7 @@
             Message = "Дата прибытия не может быть раньше даты отправления.";
             return;
         }
-        var selectedRoute = new Routes
+        var selectedRoute = new Route
             {
                 DeparturePointId = selectedCityId,
                 DestinationPointId = selectedCityId2,
@@ -80,8 +80,8 @@
                 UserId = userService.CurrentUser?.Id ?? 0
             };
 
-        dbContext.Routes.Add(selectedRoute);
-        await dbContext.SaveChangesAsync();
+        // dbContext.Routes.Add(selectedRoute);
+        // await dbContext.SaveChangesAsync();
 
         var selectedCity = Cities.FirstOrDefault(c => c.Id == selectedCityId)?.Name;
         var result = await emailService.SendMessage(selectedCity, DepartureDate);
@@ -103,13 +103,13 @@
 
     private void LoadCities()
     {
-        Cities = dbContext.Cities.ToList();
-        if (Cities.Any())
-        {
-            selectedCityId = Cities.First().Id;
-            selectedCityId2 = Cities.Last().Id; 
-            StateHasChanged();
-        }
+        // Cities = dbContext.Cities.ToList();
+        // if (Cities.Any())
+        // {
+        //     selectedCityId = Cities.First().Id;
+        //     selectedCityId2 = Cities.Last().Id; 
+        //     StateHasChanged();
+        // }
     }
 
     private void ChangeCity(ChangeEventArgs e)

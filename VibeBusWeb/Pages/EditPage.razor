@@ -40,7 +40,7 @@
     [Inject]
     private UserService UserService { get; set; } = null!;
 
-    private Users CurrentUser { get; set; } = null!;
+    private User CurrentUser { get; set; } = null!;
 
     protected override void OnInitialized()
     {
@@ -62,13 +62,13 @@
             return;
         }
 
-        var existingUser = dbContext.Users.FirstOrDefault(c => c.Id == CurrentUser.Id);
+        // var existingUser = dbContext.Users.FirstOrDefault(c => c.Id == CurrentUser.Id);
 
-        dbContext.Users.Update(CurrentUser);
-        await dbContext.SaveChangesAsync();
+        // dbContext.Users.Update(CurrentUser);
+        // await dbContext.SaveChangesAsync();
 
-        CurrentUser = dbContext.Users.FirstOrDefault(c => c.Id == existingUser.Id);
-        StateHasChanged();
+        // CurrentUser = dbContext.Users.FirstOrDefault(c => c.Id == existingUser.Id);
+        // StateHasChanged();
 
         NavigationManager.NavigateTo("/Profile");
     }

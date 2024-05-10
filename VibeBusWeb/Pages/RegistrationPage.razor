@@ -70,22 +70,22 @@
             await JSRuntime.InvokeVoidAsync("alert", "Некорректный адрес электронной почты.");
             return;
         }
-        var existingUser = dbContext.Users.FirstOrDefault(c => c.Email == _email);
-        if(existingUser != null)
-        {
-            await JSRuntime.InvokeVoidAsync("alert", "По этой почте пользователь уже был зарегистрирован!");
-            return;
-        }
-        var user = new Users()
-            {
-                Name = _name,
-                Surname = _surname,
-                Email = _email,
-                PhoneNumber = _phoneNumber,
-                Password = _password
-            };
-            dbContext.Users.Add(user);
-            await dbContext.SaveChangesAsync();
+        // var existingUser = dbContext.Users.FirstOrDefault(c => c.Email == _email);
+        // if(existingUser != null)
+        // {
+        //     await JSRuntime.InvokeVoidAsync("alert", "По этой почте пользователь уже был зарегистрирован!");
+        //     return;
+        // }
+        // var user = new User()
+        //     {
+        //         Name = _name,
+        //         Surname = _surname,
+        //         Email = _email,
+        //         PhoneNumber = _phoneNumber,
+        //         Password = _password
+        //     };
+        //     dbContext.Users.Add(user);
+        //     await dbContext.SaveChangesAsync();
 
         NavigationManager.NavigateTo("/");
 

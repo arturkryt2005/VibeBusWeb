@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
-namespace VibeBusWeb.Data
+
+namespace VibeBusWeb.Application.Data
 {
     public interface IEmailService
     {
