@@ -21,4 +21,9 @@ public class DbConnectionContext : DbContext
     public DbSet<Trip> Trips { get; set; }
 
     public DbSet<User> Users { get; set; }
+
+    public void MigrateDatabase()
+    {
+        Database.Migrate();
+    }
 }
