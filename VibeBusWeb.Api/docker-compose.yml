@@ -29,3 +29,5 @@ services:
 networks:
   vibe-bus-dev:
     driver: bridge
+volumes:
+  postgres-data:
