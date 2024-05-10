@@ -1,4 +1,5 @@
 ﻿@page "/Profile"
+@using VibeBusWeb.Services
 
 <Header />
 <Footer />
@@ -24,16 +25,16 @@
 
             <div class="data-right">
                 <p class="nameee">Имя:</p>
-                <h1 class="Name">@userService.CurrentUser.Name</h1>
+                <h1 class="Name">@UserService.CurrentUser.Name</h1>
 
                 <p class="nameee">Фамилия: </p>
-                <h1 class="SurName">@userService.CurrentUser.Surname</h1>
+                <h1 class="SurName">@UserService.CurrentUser.Surname</h1>
 
                 <p class="nameee">Почта:</p>
-                <h1 class="SurName">@userService.CurrentUser.Email</h1>
+                <h1 class="SurName">@UserService.CurrentUser.Email</h1>
 
                 <p class="nameee">Номер телефона:</p>
-                <h1 class="SurName">@userService.CurrentUser.PhoneNumber</h1>
+                <h1 class="SurName">@UserService.CurrentUser.PhoneNumber</h1>
             </div>
         </div>
 
@@ -42,10 +43,10 @@
 
 
 
-            @if (UserTrips != null && UserTrips.Any())
+            @if (Routes != null && Routes.Any())
             {
-                var pastTrips = UserTrips.Where(trip => trip.DestinationTime < DateTime.Now).OrderByDescending(trip => trip.DestinationTime).ToList();
-                var futureTrips = UserTrips.Where(trip => trip.DestinationTime >= DateTime.Now).OrderBy(trip => trip.DestinationTime).ToList();
+                var pastTrips = Routes.Where(trip => trip.DestinationTime < DateTime.Now).OrderByDescending(trip => trip.DestinationTime).ToList();
+                var futureTrips = Routes.Where(trip => trip.DestinationTime >= DateTime.Now).OrderBy(trip => trip.DestinationTime).ToList();
 
                 if (pastTrips.Any())
                 {
@@ -131,16 +132,26 @@
 
     private NavigationManager NavigationManager { get; set; } = null!;
 
+	[Inject]
+    private UserService UserService { get; set; } = null!;
+
+	[Inject]
+    private RouteService RouteService { get; set; } = null!;
+
     private User CurrentUser { get; set; } = null!;
 
-    private List<Route> UserTrips { get; set; } = null!;
+    private List<Route> Routes { get; set; } = null!;
+
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentUser = userService.CurrentUser;
+        CurrentUser = UserService.CurrentUser;
+
         if (CurrentUser != null)
         {
-            UserTrips = await userService.GetUserTripsAsync(CurrentUser.Id.ToString());
+	        Routes = (await RouteService.GetAllAsync())
+		        .Where(r => r.UserId == CurrentUser.Id)
+		        .ToList();
         }
     }
 
