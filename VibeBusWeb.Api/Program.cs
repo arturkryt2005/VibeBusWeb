@@ -6,7 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+#if RELEASE
+            options.DocumentFilter<PrefixDocumentFilter>();
+#endif
+});
 
 #if DEBUG
 builder.Services.AddDbContext<DbConnectionContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
