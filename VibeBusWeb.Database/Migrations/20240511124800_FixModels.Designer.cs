@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VibeBusWeb.Database.Data;
@@ -11,9 +12,10 @@ using VibeBusWeb.Database.Data;
 namespace VibeBusWeb.Database.Migrations
 {
     [DbContext(typeof(DbConnectionContext))]
-    partial class DbConnectionContextModelSnapshot : ModelSnapshot
+    [Migration("20240511124800_FixModels")]
+    partial class FixModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
