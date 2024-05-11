@@ -62,8 +62,11 @@ public partial class RegistrationPage
             Password = _password
         };
 
-        await UserService.CreateAsync(user);
+        var result = await UserService.CreateAsync(user);
 
-        NavigationManager.NavigateTo("/");
+        if(result.IsSuccessStatusCode)
+	        NavigationManager.NavigateTo("/");
+        else
+			await JSRuntime.InvokeVoidAsync("alert", $"{result.ReasonPhrase}");
     }
 }
