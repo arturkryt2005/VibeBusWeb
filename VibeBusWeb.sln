@@ -5,11 +5,11 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeBusWeb", "VibeBusWeb\VibeBusWeb.csproj", "{10E7D530-8D7E-435F-A9B1-815958F78911}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibeBusWeb.Api", "VibeBusWeb.Api\VibeBusWeb.Api.csproj", "{6F39DD92-7D33-4301-8293-4BBE4FE70A0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeBusWeb.Api", "VibeBusWeb.Api\VibeBusWeb.Api.csproj", "{6F39DD92-7D33-4301-8293-4BBE4FE70A0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibeBusWeb.Application", "VibeBusWeb.Application\VibeBusWeb.Application.csproj", "{C9C27403-C62C-4F4F-8FA4-21578ECADC48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeBusWeb.Application", "VibeBusWeb.Application\VibeBusWeb.Application.csproj", "{C9C27403-C62C-4F4F-8FA4-21578ECADC48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibeBusWeb.Database", "VibeBusWeb.Database\VibeBusWeb.Database.csproj", "{7685F5C3-69EC-43B5-B9C0-0D99E2C5F642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeBusWeb.Database", "VibeBusWeb.Database\VibeBusWeb.Database.csproj", "{7685F5C3-69EC-43B5-B9C0-0D99E2C5F642}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

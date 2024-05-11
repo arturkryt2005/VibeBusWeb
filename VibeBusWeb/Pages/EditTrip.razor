@@ -1,0 +1,76 @@
+﻿@page "/edit-trip/{TripId:int}"
+
+<PageTitle>Редактирование поездки</PageTitle>
+
+<Header></Header>
+<Footer></Footer>
+
+@if (SelectedRoute != null)
+{
+	<div class="container">
+		<h1 class="viborh1">Выберите путь</h1>
+
+		<div class="form-group">
+			<label for="city1">Город Отправления:</label>
+			<select class="form-control" id="city1" @onchange="ChangeCity">
+				@if (Cities.Count != 0)
+				{
+					@foreach (var city in Cities)
+					{
+						if (SelectedRoute.DeparturePointId == city.Id)
+						{
+							<option selected="selected" value="@city.Id">@city.Name</option>
+						}
+						else
+						{
+							<option value="@city.Id">@city.Name</option>
+						}
+					}
+				}
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="city2">Город Прибытия:</label>
+			<select class="form-control" id="city2" @onchange="ChangeCity2">
+				@if (Cities.Count != 0)
+				{
+					@foreach (var city in Cities)
+					{
+						if (SelectedRoute.DestinationPointId == city.Id)
+						{
+							if (city.Id != _selectedCityId)
+							{
+								<option selected="selected" value="@city.Id">@city.Name</option>
+							}
+						}
+						else
+						{
+							if (city.Id != _selectedCityId)
+							{
+								<option value="@city.Id">@city.Name</option>
+							}
+						}
+					}
+				}
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="date">Дата отправления:</label>
+			<input class="form-control" type="date" id="date" @bind="SelectedRoute.DepartureTime" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")" onkeydown="return false;"/>
+		</div>
+
+		<div class="form-group">
+			<label for="date">Дата прибытия:</label>
+			<input class="form-control" type="date" id="date" @bind="SelectedRoute.DestinationTime" min="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.AddMonths(3).ToString("yyyy-MM-dd")" onkeydown="return false;"/>
+		</div>
+		@if (_destinationDate < _departureDate)
+		{
+			<p style="color:red;">Дата прибытия не может быть раньше даты отправления.</p>
+		}
+		<div style="display: flex; justify-content: center;">
+			<button class="editbut2" @onclick="AcceptBooking">Обновить</button>
+		</div>
+	</div>
+}
