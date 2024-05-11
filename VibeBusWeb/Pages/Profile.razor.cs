@@ -48,4 +48,9 @@ public partial class Profile
     {
         NavigationManager.NavigateTo("/");
     }
+
+    private async Task NavigateToTrip(int tripId)
+    {
+        NavigationManager.NavigateTo($"/edit-trip/{tripId}");
+    }
 }

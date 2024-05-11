@@ -88,7 +88,7 @@
                             var destinationCity = Cities.FirstOrDefault(c => c.Id == trip.DestinationPointId);
 
                             <li>
-                                <div class="haveTrip">
+                                <div class="haveTrip" @onclick="() => NavigateToTrip(trip.Id)">
                                 @if (departureCity != null && destinationCity != null)
                                 {
                                     <span class="spanCities">@departureCity.Name - @destinationCity.Name</span>
